@@ -55,11 +55,3 @@ To set up the development environment:
 1. Make sure you have your Google Maps API key in the `.env` file
 2. For hot reloading, you can use tools like Live Server in VS Code
 3. Test on multiple devices to ensure responsive design works correctly
-
-## Hackathon Implementation Notes
-
-- **Gamification**: The app uses points and daily challenges to encourage participation
-- **User Experience**: Focused on simplicity and intuitive interaction
-- **Scalability**: Built with a structure that could easily connect to a backend in the future
-- **Offline First**: Works even without constant internet connection
-- **Privacy**:
