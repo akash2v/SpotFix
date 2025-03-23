@@ -1,0 +1,59 @@
+{
+    "name": "CrowdFix - Report Campus Issues",
+    "short_name": "CrowdFix",
+    "description": "Report and track issues at MIET campus",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4285f4",
+    "icons": [
+      {
+        "src": "icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ],
+    "orientation": "portrait",
+    "categories": ["utilities", "education"],
+    "screenshots": [
+      {
+        "src": "screenshot1.png",
+        "sizes": "1280x720",
+        "type": "image/png"
+      },
+      {
+        "src": "screenshot2.png",
+        "sizes": "1280x720",
+        "type": "image/png"
+      }
+    ],
+    "shortcuts": [
+      {
+        "name": "Report Issue",
+        "url": "/?action=report",
+        "icons": [
+          {
+            "src": "report-icon-96x96.png",
+            "sizes": "96x96"
+          }
+        ]
+      },
+      {
+        "name": "View Profile",
+        "url": "/?action=profile",
+        "icons": [
+          {
+            "src": "profile-icon-96x96.png",
+            "sizes": "96x96"
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpotFix - Hack Heist 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-map-marker-alt"></i>
+            <h1>SpotFix</h1>
+        </div>
+        <nav>
+            <button id="toggle-profile" aria-label="Toggle Profile">
+                <i class="fas fa-user-circle"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Report Issues Seamlessly</h2>
+            <p>Help improve your surroundings and earn Fix Points!</p>
+            <p class="credits">Developed by <a href="https://skytup.com" target="_blank">skytup.com</a></p>
+        </section>
+
+        <section class="map-container">
+            <div id="map"></div>
+            <div class="map-instructions">
+                <p><i class="fas fa-info-circle"></i> Click on the map to report an issue</p>
+            </div>
+        </section>
+
+        <section id="issue-list">
+            <h3>Recent Issues</h3>
+            <div class="issue-cards" id="issue-cards-container">
+                <!-- Issues will be added here dynamically -->
+                <p id="no-issues" class="no-issues">No issues reported yet. Be the first!</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="profile" class="profile-panel">
+        <div class="profile-header">
+            <h3>Your Profile</h3>
+            <button id="close-profile" aria-label="Close Profile">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="profile-stats">
+            <div class="stats-card">
+                <i class="fas fa-award"></i>
+                <div>
+                    <h4>Fix Points</h4>
+                    <p id="points">0</p>
+                </div>
+            </div>
+            <div class="stats-card">
+                <i class="fas fa-flag"></i>
+                <div>
+                    <h4>Total Reports</h4>
+                    <p id="total-issues">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="daily-challenge">
+            <h4>Daily Challenge</h4>
+            <p>Report 2 issues today for +15 bonus points!</p>
+            <div class="progress-container">
+                <div id="challenge-progress" class="progress-bar"></div>
+            </div>
+            <p class="challenge-status">Progress: <span id="issues-today">0</span>/2</p>
+        </div>
+        <button id="reset-daily" class="secondary-button">
+            <i class="fas fa-redo"></i> Reset Daily Challenge (Demo)
+        </button>
+    </div>
+
+    <div id="form-container" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Report an Issue</h3>
+                <button id="close-form" aria-label="Close Form">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="issue-category">Category</label>
+                    <select id="issue-category">
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="cleanliness">Cleanliness</option>
+                        <option value="safety">Safety</option>
+                        <option value="others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="issue-description">Description</label>
+                    <textarea id="issue-description" placeholder="Describe the issue in detail..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="issue-severity">Severity</label>
+                    <div class="severity-options">
+                        <input type="radio" id="low" name="severity" value="low" checked>
+                        <label for="low">Low</label>
+                        <input type="radio" id="medium" name="severity" value="medium">
+                        <label for="medium">Medium</label>
+                        <input type="radio" id="high" name="severity" value="high">
+                        <label for="high">High</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issue-image">Upload Image (optional)</label>
+                    <input type="file" id="issue-image" accept="image/*">
+                    <div id="image-preview"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="submit-issue" class="primary-button">
+                    <i class="fas fa-paper-plane"></i> Submit
+                </button>
+                <button id="cancel-issue" class="secondary-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <div class="description-more">
+        <section class="description">
+            <h3>About SpotFix</h3>
+            <p>SpotFix is a platform designed to empower individuals to report issues and contribute to the betterment of their surroundings. Whether it's infrastructure, cleanliness, or safety concerns, SpotFix ensures your voice is heard and rewarded.</p>
+        </section>
+        <section class="features">
+            <h3>Why Choose SpotFix?</h3>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Easy-to-use interface for reporting issues.</li>
+                <li><i class="fas fa-check-circle"></i> Earn Fix Points for every report you make.</li>
+                <li><i class="fas fa-check-circle"></i> Track your contributions and progress.</li>
+                <li><i class="fas fa-check-circle"></i> Join a community dedicated to improvement.</li>
+            </ul>
+        </section>
+        <section class="about">
+            <h3>What is SpotFix?</h3>
+            <p>SpotFix is a collaborative platform that allows individuals to report issues in their surroundings and contribute to creating a better environment. By reporting issues, users can earn rewards and track their impact.</p>
+        </section>
+        <!-- <section class="what-we-do">
+            <h3>What We Do</h3>
+            <p>At SpotFix, we bridge the gap between individuals and authorities by providing a seamless way to report and resolve issues. Our platform focuses on:</p>
+            <ul>
+                <li><i class="fas fa-tools"></i> Identifying and addressing infrastructure problems.</li>
+                <li><i class="fas fa-broom"></i> Promoting cleanliness and hygiene.</li>
+                <li><i class="fas fa-shield-alt"></i> Enhancing safety and security.</li>
+                <li><i class="fas fa-users"></i> Building a community of proactive individuals.</li>
+            </ul>
+        </section> -->
+        <!-- <section class="faq">
+            <h3>Frequently Asked Questions</h3>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> How do I report an issue?</h4>
+                <p>Simply click on the map, fill out the form with details about the issue, and submit it. It's that easy!</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> What are Fix Points?</h4>
+                <p>Fix Points are rewards you earn for reporting issues. They reflect your contribution to improving the community.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Is SpotFix free to use?</h4>
+                <p>Yes, SpotFix is completely free to use for everyone.</p>
+            </div>
+        </section> -->
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 SpotFix. All rights reserved.</p>
+            <p>Developed by <a href="https://skytup.com" target="_blank" rel="noopener noreferrer">skytup.com</a></p>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+    </style>
+
+    <script src="script.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClYn7bBqg8KV32fe9fAtYpD3TIMcC-owM&callback=initMap"></script>
+</body>
+</html>
