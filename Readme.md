@@ -1,6 +1,6 @@
 # SpotFix - Issue Reporting App
 
-SpotFix is a responsive web application that allows users to report issues and earn points for their contributions. This project was created for Hack Heist 2025.
+SpotFix is a responsive web application that allows users to report issues and earn points for their contributions. This project is created by Akash Vishwakarma
 
 ## Features
 

@@ -9,6 +9,7 @@ let issuesToday = 0;
 let totalIssues = 0;
 let selectedMarker = null;
 let userLocation = null;
+let searchBox, autocompleteService, placesService;
 
 // DOM elements
 const formContainer = document.getElementById('form-container');
@@ -22,7 +23,7 @@ const closeFormButton = document.getElementById('close-form');
 const issueImageInput = document.getElementById('issue-image');
 const imagePreview = document.getElementById('image-preview');
 
-// Initialize the map
+// Initialize the map and search functionality
 function initMap() {
     const defaultLocation = { lat: 28.9700, lng: 77.7100 };
     
@@ -117,6 +118,30 @@ function initMap() {
 
     // Load issues from local storage
     loadIssues();
+
+    // Initialize search box and services
+    const searchInput = document.getElementById('search-box');
+    const searchButton = document.getElementById('search-button');
+    autocompleteService = new google.maps.places.AutocompleteService();
+    placesService = new google.maps.places.PlacesService(map);
+
+    // Add event listener for search button
+    searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchLocation(query);
+        }
+    });
+
+    // Add "Enter" key listener for search input
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchLocation(query);
+            }
+        }
+    });
 }
 document.addEventListener('DOMContentLoaded', loadIssues);
 // Create a custom control for the map
@@ -574,6 +599,48 @@ issueImageInput.addEventListener('change', function() {
         reader.readAsDataURL(this.files[0]);
     }
 });
+
+// Search for a location and center the map
+function searchLocation(query) {
+    const request = {
+        query: query,
+        fields: ['name', 'geometry'],
+    };
+
+    placesService.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+            const place = results[0];
+            const location = place.geometry.location;
+
+            map.setCenter(location);
+            map.setZoom(16);
+
+            // Clear previous search markers
+            clearTempMarkers();
+
+            // Add a marker for the searched location
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: place.name,
+                animation: google.maps.Animation.DROP,
+            });
+
+            markers.push(marker);
+
+            // Show toast for successful search
+            showToast(`Centered map on: ${place.name}`, 'success');
+        } else {
+            showToast('No results found for your search', 'error');
+        }
+    });
+}
+
+// Clear temporary markers (used for search results)
+function clearTempMarkers() {
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+}
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
