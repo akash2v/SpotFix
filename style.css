@@ -608,7 +608,7 @@ footer a:hover {
 
 /* Styling for the search box */
 #search-box-container {
-    display: flex;
+    display: none;
     align-items: center;
     background-color: var(--white);
     border-radius: var(--radius);
