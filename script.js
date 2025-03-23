@@ -116,8 +116,6 @@ function initMap() {
         );
     }
 
-    // Load issues from local storage
-    loadIssues();
 
     // Initialize search box and services
     const searchInput = document.getElementById('search-box');
@@ -143,7 +141,6 @@ function initMap() {
         }
     });
 }
-document.addEventListener('DOMContentLoaded', loadIssues);
 // Create a custom control for the map
 function createCenterControl(controlDiv) {
     // CSS for the control
@@ -689,3 +686,11 @@ if (localStorage.getItem("firstVisit") === null) {
         showToast('Welcome to SpotFix! Click on the map to report issues.', 'success');
     }, 1000);
 }
+
+
+
+    // Load issues from local storage
+    loadIssues();
+
+    
+document.addEventListener('DOMContentLoaded', loadIssues);
